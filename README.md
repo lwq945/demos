@@ -45,7 +45,7 @@ git commit -am “modified a” 把暂存区的更新提交到本地仓库
 git push origin master 推送到远程仓库master分支
 ```
  
-#本地创建一个git项目推送到远程空仓库
+# 本地创建一个git项目推送到远程空仓库
 ```
 mkdir blogtest 创建空目录
 cd blogtest
