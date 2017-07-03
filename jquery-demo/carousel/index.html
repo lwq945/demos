@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>渐变轮播</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <style>
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      ul {
+        list-style: none;
+      }
+      a {
+        text-decoration: none;
+      }
+      
+      .carousel{
+        position: relative;
+        width: 350px;
+        height: 200px;
+        margin: 10px auto;
+        overflow: hidden;
+      }
+      .carousel .img-ct{
+        position: relative;
+      }
+    
+      .carousel .img-ct li{
+        position: absolute;
+        font-size: 0;
+        display: none;
+      }
+
+      .carousel .img-ct img{
+        width: 350px;
+        height: 200px;
+      }
+
+      .arrow{
+        position: absolute;
+        top: 50%;
+        margin-top: -15px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background: #4E443C;
+        color: #fff;
+        border-radius: 30px;
+        box-shadow: 0 0 2px #999;
+        opacity: .8;
+      }
+      .arrow:hover {
+          opacity: 1;
+      }
+      .prev{
+        left: 10px;
+      }
+      .next{
+        right: 10px;
+      }
+      .carousel .bullet {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+       .carousel .bullet li {
+        width: 20px;
+        height: 6px;
+        border-radius: 2px;
+        background: #fff;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .carousel .bullet li.active {
+        background: #4E443C;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <ul class="img-ct">
+        <li data-id=0><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f4547c40f2.jpg"></a></li>
+        <li data-id=1><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f454c809da.jpg"></a></li>
+        <li data-id=2><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f454e1afa3.jpg"></a></li>
+        <li data-id=3><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f45aeb2dd6.jpg"></a></li>
+      </ul>
+      <a class="prev arrow" href="#"><</a>
+      <a class="next arrow" href="#">></a>
+      <ul class="bullet">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+
+    <script src="//libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+      var $imgCt = $('.img-ct'),
+          $imgs = $('.img-ct >li'),
+          $prev = $('.prev'),
+          $next = $('.next'),
+          $bullets = $('.bullet>li'),
+          imgWidth = $imgs.width(),
+          imgCount = $imgs.length;
+
+      var imgIndex = 0;
+      var isAnimate = false;
+
+      $next.on('click', function(){
+        playNext();
+      });
+
+      $prev.on('click', function(){
+        playprev();
+      });
+
+      $bullets.on('click', function(){
+        var idx = $(this).index();
+        play(idx);
+      });
+
+      $imgCt.on('mouseenter',function(){
+        stopAuto();
+      })
+
+      $imgCt.on('mouseleave',function(){
+        autoPlay();
+      })
+
+
+      play(0);
+      autoPlay();
+
+
+
+
+      function playNext(){
+        /*imgIndex=0,(0+1)%4=1,play(1),eq(0).fadeOut,eq(1).fadeIn;
+          imgIndex=1,(1+1)%4=2,play(2),eq(1).fadeOut,eq(2).fadeIn;
+          imgIndex=2,(2+1)%4=2,play(3),eq(2).fadeOut,eq(3).fadeIn;
+          imgIndex==3,(3+1)%4=0,play(0),eq(3).fadeOut,eq(0).fadeIn;
+          通过这样才会无限渐变
+        */
+        play((imgIndex+1)%imgCount)
+      }
+
+      function playprev(){
+        //当imgIndex==0时，play(3)
+        play((imgCount+imgIndex-1)%imgCount)
+      }
+      
+      function play(idx){
+        if(isAnimate) return;
+        isAnimate = true;
+        $imgs.eq(imgIndex).fadeOut(500);
+        $imgs.eq(idx).fadeIn(500, function(){
+          isAnimate = false;
+        });
+        
+        imgIndex = idx;
+        setBullet();
+      }
+
+      function setBullet(){
+        $bullets.removeClass('active')
+                  .eq(imgIndex).addClass('active');
+      }
+
+      function stopAuto(){
+        clearInterval(clock);
+      }
+
+      function autoPlay(){
+        clock = setInterval(function(){
+          playNext();
+        }, 2000); 
+      }
+    </script>
+  </body>
+</html>
