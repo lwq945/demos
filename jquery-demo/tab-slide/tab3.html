@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>tab-add</title>
+  <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+  <div class="tab">
+    <h1>珠宝首饰</h1>
+    <ul class="tab-panel clearfix">
+      <li class="category">
+        <p></p>
+        <span>立即抢购</span>
+        <img src="//img12.360buyimg.com/N3/jfs/t2302/181/1562193880/220016/88a978ef/56cbbc11Nd6d3b04b.jpg" alt="">
+        <div class="detail">
+          <p>藏美千足金和田玉金镶玉吊坠</p>
+          <p>￥2000.00</p>
+        </div>
+      </li>
+      <li class="category">
+        <p></p>
+        <span>立即抢购</span>
+        <img src="//img12.360buyimg.com/N3/jfs/t2302/181/1562193880/220016/88a978ef/56cbbc11Nd6d3b04b.jpg" alt="">
+        <div class="detail">
+          <p>藏美千足金和田玉金镶玉吊坠</p>
+          <p>￥2000.00</p>
+        </div>
+      </li>
+      <li class="category">
+        <p></p>
+        <span>立即抢购</span>
+        <img src="//img12.360buyimg.com/N3/jfs/t2302/181/1562193880/220016/88a978ef/56cbbc11Nd6d3b04b.jpg" alt="">
+        <div class="detail">
+          <p>藏美千足金和田玉金镶玉吊坠</p>
+          <p>￥2000.00</p>
+        </div>
+      </li>
+      <li class="category">
+        <p></p>
+        <span>立即抢购</span>
+        <img src="//img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+        <div class="detail">
+          <p>6克拉南非砖石戒指</p>
+          <p>￥1000.00</p>
+        </div>
+      </li>
+      <li class="category">
+        <p></p>
+        <span>立即抢购</span>
+        <img src="//img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+        <div class="detail">
+          <p>6克拉南非砖石戒指</p>
+          <p>￥1000.00</p>
+        </div>
+      </li>
+      <li class="category">
+        <p></p>
+        <span>立即抢购</span>
+        <img src="//img10.360buyimg.com/N3/jfs/t1360/330/897475737/123557/23624706/55b05e25N13d4ec5e.jpg" alt="">
+        <div class="detail">
+          <p>6克拉南非砖石戒指</p>
+          <p>￥1000.00</p>
+        </div>
+      </li>
+    </ul>
+    <a href="javascript:void(0)" class="btn-add">添加</a>
+  </div>
+    
+  <script src="//libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+
+    var products = [
+      {
+        img: '//img10.360buyimg.com/N3/jfs/t2242/92/1446546284/374195/9196ac66/56af0958N1a723458.jpg',
+        name: '珂兰 黄金手 猴哥款',
+        price: '￥405.00'
+        },{
+        img: '//img10.360buyimg.com/N3/jfs/t2242/92/1446546284/374195/9196ac66/56af0958N1a723458.jpg',
+        name: '珂兰 黄金转运珠 猴哥款',
+        price: '￥100.00'
+        },{
+        img: '//img10.360buyimg.com/N3/jfs/t2242/92/1446546284/374195/9196ac66/56af0958N1a723458.jpg',
+        name: '珂兰 黄金手链 3D猴哥款',
+        price: '￥45.00'
+      }
+    ];
+
+    $('.btn-add').on('click', function(e){
+      e.preventDefault();
+      for (var i=0;i<products.length;i++){
+        var html = '';
+        html += '<li class="category">';
+        html +=   '<p></p>'
+        html +=   '<span>立即抢购</span>'
+        html +=   '<img src="'+products[i].img+'" alt="">'
+        html +=   '<div class="detail">'
+        html +=      '<p>'+products[i].name+'</p>'
+        html +=      '<p>'+products[i].price+'</p>'
+        html +=   '</div>'
+        html += '</li>';
+        $('.tab-panel').append(html);
+      }
+    });
+
+    $('.tab-panel').on('mouseenter','.category',function(){
+      $(this).addClass('hover').siblings().removeClass('hover');
+    });
+    $('.tab-panel').on('mouseleave','.category',function(){
+      $(this).removeClass('hover');
+    });
+  </script>
+</body>
+</html>
