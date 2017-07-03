@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>图片懒加载</title>
+  <style>
+    ul,
+    li,
+    img {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .layout {
+      width: 511px;
+      margin: 20px auto;
+    }
+    .ct {
+      list-style: none;
+      margin-right: -10px;
+    }
+    .ct li{
+      float: left;
+      
+      margin-right: 10px;
+      margin-bottom: 20px;
+    }
+    .ct li img {
+      width: 250px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <ul class="ct">
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="http://7xpvnv.com2.z0.glb.qiniucdn.com/283a4100-10cd-4208-a3b5-4030ec03acf6" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f4547c40f2.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f454a71745.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f454c809da.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f454d853ae.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f454e1afa3.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f4550951ed.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f45adc6291.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f45aeb2dd6.jpg" alt=""></a></li>
+    <li><a href=""><img src="https://ooo.0o0.ooo/2017/06/13/593f3e38a527c.gif" data-src="https://ooo.0o0.ooo/2017/06/13/593f45afd8136.jpg" alt=""></a></li>
+  </ul>
+  </div>
+
+  <script src="//libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+
+    
+    var clock;
+    $(window).on('scroll',function(){
+    	if(clock){
+    		clearTimeout(clock);
+    	}
+      clock=setTimeout(function(){
+      	console.log('hello');
+      	lazyLoad($('.ct img'));
+      },300)
+    });
+    
+     function lazyLoad($node){
+    	$node.each(function(){
+        if(isShow($(this)) && !isLoad($(this))){
+          load($(this));
+        }
+      })
+    }
+    
+    function isShow($node){
+      console.log('show ', $node)
+      var windowHeight = $(window).height(),
+          scrollTop = $(window).scrollTop(),
+          offsetTop = $node.offset().top,
+          nodeHeight = $node.height();
+      if(windowHeight + scrollTop > offsetTop && scrollTop < offsetTop + nodeHeight){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    
+    function isLoad($node){
+      return $node.attr('src')===$node.attr('data-src');
+    }
+    
+    function load($node){
+      $node.attr('src',$node.attr('data-src'));
+    }
+   
+  </script>
+</body>
+</html>
