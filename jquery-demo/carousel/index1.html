@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>左右滚动无限循环轮播</title>
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+  <div class="carousel">
+    <ul class="img-ct">
+      <li data-id=0><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f4547c40f2.jpg" alt=""></a></li>
+      <li data-id=1><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f454c809da.jpg" alt=""></a></li>
+      <li data-id=2><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f454e1afa3.jpg" alt=""></a></li>
+      <li data-id=3><a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f45aeb2dd6.jpg" alt=""></a></li>
+    </ul>
+    <a class="prev btn" href="javascript:void(0)"><</a>
+    <a class="next btn" href="javascript:void(0)">></a>
+    <ul class="bullet">
+      <li class="active"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+  <script src="//libs.baidu.com/jquery/2.1.1/jquery.min.js>"</script>
+  <script>
+    var $imgCt = $('.img-ct')
+    var $imgs = $('.img-ct >li')
+    var $prevBtn = $('.carousel .prev')
+    var $nextBtn = $('.carousel .next')
+    var $bullets = $('.bullet > li')
+
+    var pageIndex = 0;
+    var isAnimate = false;
+
+    var imgCount = $imgs.length
+    var imgWidth = $imgs.first().width()
+    $imgCt.append($imgs.first().clone())
+    $imgCt.prepend($imgs.last().clone())
+    $imgCt.width((imgCount+2)*imgWidth)
+    $imgCt.css({left:-imgWidth})
+
+    
+    $prevBtn.on('click',function(e){
+     
+      playPrev(1);
+    })
+    
+    $nextBtn.on('click',function(){
+      playNext(1);
+    })
+    
+    $bullets.on('click',function(){
+      var index=$(this).index();
+      if(index>pageIndex){
+        playNext(index-pageIndex);
+      }else if(index<pageIndex){
+        playPrev(pageIndex-index);
+      }
+    })
+
+    // setInterval(function(){
+    //   nextPlay(1);
+    // },2000)
+    
+    function playPrev(len){
+      if(isAnimate) return;
+      isAnimate=true;
+
+      $imgCt.animate({
+        left:'+='+len*imgWidth
+      },function(){
+        pageIndex-=len;
+        if(pageIndex < 0){
+          pageIndex=imgCount-1;
+          $imgCt.css({left:-imgCount*imgWidth});
+        }
+        setBullet()
+        isAnimate=false;
+      })
+    }
+
+    function playNext(len){
+      if(isAnimate) return;
+      isAnimate=true;
+
+      $imgCt.animate({
+        left:'-='+(len*imgWidth)
+      },function(){
+        pageIndex+=len;
+        if(pageIndex===imgCount){
+          pageIndex=0;
+          $imgCt.css({left:-imgWidth});
+        }
+        setBullet()
+        isAnimate=false
+      })
+    }
+    
+    
+    function setBullet(){
+      $bullets.removeClass('active').eq(pageIndex).addClass('active')
+    }
+    
+   
+  </script>  
+</body>
+</html>
