@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax-lazyLoad-waterfall</title>
+	<style>
+		div,ul,li,p,a,h4 {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		li {
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		.layout {
+			width: 900px;
+			margin: 0 auto;
+		}
+		.img-ct {
+			position: relative;
+			
+		}
+		.img-ct .item {
+			position: absolute;
+			width: 280px;
+			padding-bottom: 10px;
+			margin: 10px;
+			border: 1px solid #ccc;
+			transition: all 1s;
+		}
+
+		.img-ct .item img {
+			width: 260px;
+			margin: 10px;
+		}
+		.img-ct .item h4 {
+			margin: 0 10px;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #ccc;
+		}
+		
+		.img-ct .item p {
+			margin: 10px;
+			font-size: 12px;
+			color: #666;
+		}
+		.img-ct .item.hide {
+			display: none;
+		}
+		.img-ct .load {
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="layout">
+		<ul class="img-ct">
+			<!-- <li class="item">
+				<a href="#"><img src="https://ooo.0o0.ooo/2017/06/13/593f4547c40f2.jpg" alt=""></a>
+				<h4>标题</h4>
+				<p>内容介绍内容介绍内容介绍内容介绍内容介绍内容介绍内容介绍</p>
+			</li> -->
+			<li class="item hide"></li>
+		</ul>
+		<p class="load"></p>
+	</div>
+
+	<script src="//libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		/*
+		1.获取数据
+		2.把数据转化成Dom，添加到父容器，通过瀑布流方式放到页面上
+		3.当滚动到底部的时候，转到1
+		 */
+		var pageIndex=1;
+		var dataCount=10;
+		var nodeWidth=$('.item').outerWidth(true);
+		var colNum=parseInt($('.img-ct').width()/nodeWidth);
+		var colHeight=[];
+		for (var i = 0 ; i < colNum; i++) {
+			colHeight.push(0);
+		}
+
+		var isDataArrive = true;
+
+		start()
+		function start(){
+			getData(function(newsList){
+			//得到数据
+			console.log(newsList);
+			isDataArrive = true;
+			//处理newsList的每一项
+				$.each(newsList,function(idx,news){
+					//先得到一个节点
+					var $node=getNode(news);
+					//判断这个节点的图片是否加载完
+					$node.find('img').load(function(){
+						//添加到父容器
+						$('.img-ct').append($node);
+						waterfallPlace($node);
+					})
+				})
+			})
+			isDataArrive = false;
+		}
+   
+  	$(window).scroll(function(){
+  		if(!isDataArrive) return;
+		  if(isShow($('.load'))){
+			  start()
+		  }
+	  })
+    
+		
+		
+		function getData(callback){
+			$.ajax({
+        url: 'http://platform.sina.com.cn/slide/album_tech',
+        dataType: 'jsonp',
+        jsonp: "jsoncallback",
+        data:{
+        	app_key: '1271687855',
+        	num: dataCount,
+         page: pageIndex
+        },
+        success: function(res){
+          if(res && res.status && res.status.code==="0"){
+            // console.log(res);
+            callback(res.data); //传递结果
+             pageIndex++;
+            }      
+        },
+        error: function(){
+          console.log('系统出错了...');
+        }
+      })  
+	  }
+
+	  function getNode(item){
+	  	var htmls='';
+	  	htmls+='<li class="item">';
+	    htmls+='<a href="'+item.url+'"><img src="'+item.img_url+'" alt=""></a>';
+			htmls+='<h4>'+item.short_name+'</h4>';
+			htmls+='<p>'+item.short_intro+'</p></li> ';
+			
+			return $(htmls);
+	  }
+
+	  function waterfallPlace($node){
+	  
+	  	var minHeight =Math.min.apply(null,colHeight);
+	  	var minIndex =colHeight.indexOf(minHeight);
+	 //  	var idx = 0,
+		// 	  minHeight = colHeight[0];
+
+		// for(var i=0;i<colHeight.length; i++){
+		// 	if(colHeight[i] < minHeight){
+		// 		idx = i;
+		// 		minHeight = colHeight[i];
+		// 	}
+		// }
+	 
+	  	$node.css({
+	  		top: minHeight,
+	  		left: nodeWidth*minIndex
+	  	});
+
+	  	// colHeight[minIndex]+= $node.outerHeight(true);
+	  	colHeight[minIndex] = $node.outerHeight(true) + colHeight[minIndex];
+	  	$('.img-ct').height(Math.max.apply(null,colHeight));
+	  }
+
+	  function isShow($el){
+	    var scrollH = $(window).scrollTop(),
+	  	  winH = $(window).height(),
+	  	  top = $el.offset().top;
+
+  	  if(top < winH + scrollH+500){
+  	  	return true;
+  	  }else{
+  	  	return false;
+  	  }
+	}
+	</script>
+</body>
+</html>
