@@ -18,9 +18,9 @@ Git是一种分布式版本控制系统。
  
 ## 查看当前文件状态：git status
 ```
-    untracked files：未跟踪文件（还没添加到暂存区）
-    changes to be commmited：已暂存
-    changes not staged for commit：已跟踪文件的内容发生了变化，但还没有放到暂存区。
+untracked files：未跟踪文件（还没添加到暂存区）
+changes to be commmited：已暂存
+changes not staged for commit：已跟踪文件的内容发生了变化，但还没有放到暂存区。
 ```
 
 ## 把当前目录下的新增和修改添加到暂存区：git add  .
