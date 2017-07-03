@@ -1,0 +1,356 @@
+
+
+/* css reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+
+/* common css */
+body {
+  font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, "sans serif";
+}
+.layout {
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* page css */
+html,
+body {
+  height: 100%;
+}  
+
+/*header*/
+#header {
+  position: relative;
+  height: 100%;
+  background: url(http://i4.buimg.com/567571/c9c93bd89a49f1d0.jpg) 0 0 no-repeat;
+  background-size: cover;
+} 
+#header .nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 60px;
+  background-color: rgba(3,3,3,.5);
+}
+#header .nav .logo {
+  float: left;
+  padding: 5px 0;
+}
+.nav .logo img{
+  width: 120px;
+  height: 50px;
+}
+.nav .navbar {
+  float: right;
+}
+.nav .navbar>li {
+  float: left;
+  margin: 20px 15px 20px 0px;
+}
+.nav .navbar>li:last-child {
+  margin-right: 0px;
+}
+.nav .navbar a {
+  color: #fff;
+}
+.nav .navbar a:hover {
+  color: #ffd700;
+}
+
+.panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #fff5c0;
+}
+.panel h2 {
+  text-shadow: 5px 5px 5px #f9711a;
+  font-size: 36px;
+}
+.panel p {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 5px 5px 5px #f9711a;
+}
+.panel a {
+  display: inline-block;
+  padding: 15px 20px;
+  margin-top: 50px;
+  border-radius: 3px;
+  background-color: #f9711a;
+  color: #fff5c0;
+  text-align: center;
+}
+.panel a:hover {
+  background-color: #fc0;
+}
+
+/* 游戏背景 */
+.game-bg {
+  padding: 80px 0;
+  text-align: center;
+  /* background-color: #31acf2; */
+}
+
+.game-bg ul {
+  margin-top: 40px; 
+}
+.game-bg .item {
+  float: left;
+  width: 33.333333%; 
+}
+.game-bg .item img {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 10px;
+  border: 1px solid #1d7db1;
+  border-radius: 50%;
+}
+.game-bg .item h4 {
+  color: #20f3e5;
+}
+.game-bg p {
+  color: #333;
+  padding: 10px;
+}
+
+/* 游戏地图 */
+.game-map {
+  background-color: #eee;
+  padding: 80px 0;
+}
+.game-map h1 {
+  margin-bottom: 40px;
+  border-bottom: 2px solid #ccc;
+}
+.map-container {
+  margin-left: -9px;
+  font-size: 0;
+}
+.game-map .map-item {
+  float: left;
+  width: 326px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px 0 rgba(0,0,0,0.7);
+}
+.game-map .map-item a {
+  position: relative;
+  display: block;
+}
+.game-map .map-item p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 200px; 
+  background-color: #fed136;
+  opacity: .85;
+}
+.game-map .map-item span {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 100px;
+  color: #fff;
+}
+.game-map a:hover span,
+.game-map a:hover p
+{
+  display: block;
+}
+.game-map .map-item img {
+  width: 100%;
+  height: 200px;
+}
+.game-map .map-item h4 {
+  padding: 10px 0;
+  font-size: 14px;
+  background-color: #ccc;
+  color: #fff;
+}
+
+/* 门派介绍 */
+.menpai-intro {
+  padding: 80px 0;
+}
+.menpai-intro p {
+  margin-top: 10px;
+  color: #999;
+  line-height: 1.75;
+}
+.menpai-intro .mp-line {
+  position: relative;
+  margin-top: 50px;
+}
+.menpai-intro .mp-line:before {
+  position: absolute;
+  top: 0;
+  bottom: 20px;
+  width: 2px;
+  background-color: #ccc;
+  content: '';
+}
+.mp-line>li {
+  margin-bottom: 100px;
+}
+.mp-line>li .mp-img {
+  position: absolute;
+  left: 50%;
+  margin-left: -75px;
+  text-align: center;
+  z-index: 100;
+}
+.mp-item .mp-img img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 7px solid #ccc;
+}
+.mp-item:nth-of-type(odd) .mp-panel {
+  position: relative;
+  float: left; 
+  width: 40%; 
+  padding: 0 20px;
+  text-align: right;
+}
+.mp-item:nth-of-type(even) .mp-panel {
+  position: relative;
+  float: right; 
+  width: 40%; 
+  padding: 0 20px;
+  text-align: left;
+}
+.mp-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 角色简介 */
+.character {
+  padding: 80px 0;
+  background-color: #eee;
+}
+.character h1 {
+  margin-bottom: 50px;
+}
+.character-intro > li {
+  float: left;
+  width: 33.333333%;
+}
+.character-intro .character-img img{
+  width: 250px;
+  height: 250px;
+  border: 7px solid #fff;
+  border-radius: 50%;
+}
+.character-intro .icon-font {
+  text-align: center;
+}
+.character-intro a {
+  display: inline-block;
+  height: 43px;
+  width: 40px;
+  line-height: 43px;
+  text-align: center;
+  margin: 5px;
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 266307 */
+  src: url('//at.alicdn.com/t/font_rz3i71r1wyst6gvi.eot');
+  src: url('//at.alicdn.com/t/font_rz3i71r1wyst6gvi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_rz3i71r1wyst6gvi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_rz3i71r1wyst6gvi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_rz3i71r1wyst6gvi.svg#iconfont') format('svg');
+}
+.icon {
+  font-family:"iconfont" !important;
+  font-size: 40px; 
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+	color: #333; 
+}
+.icon:hover {
+  color: #ffd700; 
+}
+
+.icon1:before {
+	content: '\e674';
+}
+.icon2:before {
+	content: '\e627';
+}
+.icon3:before {
+	content: '\e69f';
+}
+.contact {
+  padding: 80px 0;
+  background-color: #222;
+}
+.contact h1 {
+  color: #fff;
+}
+.contact .form {
+  margin-top: 30px;
+}
+.contact .form-group {
+  width: 50%;
+  float: left;
+  padding: 0 30px;
+}
+
+.contact .form-group input,
+.contact .form-group textarea {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid;
+  border-radius: 3px;
+  color: #ccc;
+}
+.contact .form-group textarea {
+  height: 214px;
+}
+.contact .form-submit input[type=submit] {
+  display: inline-block;
+  padding: 20px 25px;
+  border: 1px solid #222;
+  border-radius: 3px;
+  background-color: #fed136;
+  color: #fff;
+  clear: both;
+}
+
+.footer ul>li {
+  width: 33.333333%;
+  float: left;
+  padding: 0 20px;
+  height: 80px;
+  line-height: 80px;
+}
+.footer li a {
+  padding: 0 5px;
+}
