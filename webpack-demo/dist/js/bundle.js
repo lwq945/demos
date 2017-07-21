@@ -403,7 +403,7 @@ waterfallLoad.prototype={
 		this.callback=callback;
 		var _this=this
 		$.ajax({
-	    url: 'http://platform.sina.com.cn/slide/album_tech',
+	    url: '//platform.sina.com.cn/slide/album_tech',
 	    dataType: 'jsonp',
 	    jsonp: "jsoncallback",
 	    data:{
